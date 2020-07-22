@@ -1,6 +1,6 @@
 name: Jason Lange
 studentNumber: z5320190
 officialEmail: z5320190@ad.unsw.edu.au
-contactEmail:
-  firstBit: firstName.Lastname  # this avoids spam, the @ is implied
-  otherBit: whereIwork.com
+contactEmail: 
+  firstBit: jason.mark.lange  # this avoids spam, the @ is implied
+  otherBit: gmail.com
