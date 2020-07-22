@@ -7,7 +7,13 @@ def is_odd(a_number):
 
     Look into modulo division using the '%' operator as one way of doing this.
     """
-    return None
+    # if a_number divided by 2 has a remainder (not 0), then it MUST be uneven.
+    # Otherwise, it's even.
+
+    if((a_number % 2) != 0):
+        return True
+    else:
+        return False
 
 
 def fix_it(moves=True, should_move=True):
@@ -25,7 +31,20 @@ def fix_it(moves=True, should_move=True):
     Most people write this function with 4 return statements. 
     As an extra challenge, see if you can get that down to three.
     """
-    return None
+
+    # As per the flowchart:
+    # If it doesn't move and should, it's WD-40
+    # If it moves and should move, it's Duct Tape
+    # If it doesn't move and shouldn't move, or if it moves and should move, it's no problem
+
+    if moves == False and should_move == True:
+        return "WD-40"
+
+    if moves == True and should_move == False:
+        return "Duct Tape"
+
+    if moves == should_move:
+        return "No Problem"
 
 
 def loops_1a():
