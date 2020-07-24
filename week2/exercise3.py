@@ -36,15 +36,12 @@ def fix_it(moves=True, should_move=True):
     # If it doesn't move and should, it's WD-40
     # If it moves and should move, it's Duct Tape
     # If it doesn't move and shouldn't move, or if it moves and should move, it's no problem
-
-    if moves == False and should_move == True:
-        return "WD-40"
-
-    if moves == True and should_move == False:
-        return "Duct Tape"
-
     if moves == should_move:
         return "No Problem"
+    elif moves and not should_move:
+        return "Duct Tape"
+    elif not moves and should_move:
+        return "WD-40"
 
 
 def loops_1a():
@@ -54,7 +51,15 @@ def loops_1a():
     return a list of 10 items, each one a string with exacly one star in it.
     E.g.: ['*', '*', '*', '*', '*', '*', '*', '*', '*', '*']
     """
-    return None
+ 
+    # We do this using append, adding one star to the existing variable
+    # for each loop until we have 10.
+
+    stars = []
+    for i in range(10):
+        stars.append("*")
+    
+    return stars
 
 
 def loops_1c(number_of_items=5, symbol="#"):
@@ -64,7 +69,13 @@ def loops_1c(number_of_items=5, symbol="#"):
     string with exacly one symbol in it.
     E.g.: ['#', '#', '#', '#', '#']
     """
-    return None
+
+    hash_list = [] # Create an empty list for the hashes
+
+    for i in range(number_of_items): # Start a loop based off a range from parameter number_of_items
+        hash_list.append(symbol) # Append a symbol from the parameter each loop
+
+    return hash_list
 
 
 def loops_2():
@@ -85,7 +96,19 @@ def loops_2():
             ['*', '*', '*', '*', '*', '*', '*', '*', '*', '*'],
           ]
     """
-    return None
+
+    star_list = [] # Create an empty list for the stars
+
+    for i in range(10): # Start a loop that runs 10 times
+        star_list.append('*') # Append a star to the list each loop
+
+    star_block = [] # Now that we have our star list, create a star block
+
+    for i in range(10): # Start a loop that runs 10 times
+        star_block.append(star_list) # Append the previous star list to the loop 10 times
+
+    return star_block
+
 
 
 def loops_3():
@@ -109,9 +132,20 @@ def loops_3():
     TIP: notice that this needs to to return strings of numbers,
          so call str(number) to cast.
     """
-    return None
+    number_block = [] # Create an empty list for the number block
+    for i in range(10): # Run the loop 10 times
+        
+        current_loop = i # Set a variable that is the current loop number
+        number_list = [] # Reset the number list (otherwise it keeps accumulating numbers from prior loops)
+        
+        for i in range(10): # Run the loop 10 times
+            number_list.append(str(0 + current_loop)) # Fill the list with 10 numbers that are the current loop's number + the previous loop's number
+        
+        number_block.append(number_list) # Append the number list to the number block
+    
+    return number_block
 
-
+ 
 def loops_4():
     """Make a block of numbers that rises left to right.
 
@@ -129,7 +163,15 @@ def loops_4():
       ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
     ]
     """
-    return None
+    number_list = []
+    for i in range(10): 
+        number_list.append(str(i)) # For each loop, append the current loop counter to number_list
+    
+    number_block = []
+    for i in range(10):
+        number_block.append(number_list) # Each loop, append the rising number block
+
+    return number_block
 
 
 def loops_5():
@@ -156,7 +198,20 @@ def loops_5():
         "There are {} green bottles".format(8)
     you'll come to see the pros and cons of each over time.
     """
-    return None
+
+    coordinate_block = []
+
+    for i in range(10):
+        
+        block_loop = i
+        coordinate_list = []
+        
+        for i in range(5):
+            coordinate_list.append('(i' + str(block_loop) + ', j' + str(i) + ')')
+        
+        coordinate_block.append(coordinate_list)
+
+    return coordinate_block
 
 
 def loops_6():
@@ -179,7 +234,24 @@ def loops_6():
     You can use a variable.
     TIP: look out for the starting condition.
     """
-    return None
+    import copy
+
+    wedge_list = []
+    wedge_block = []
+    for i in range(10):
+        wedge_list.append(str(i)) # Append a number to the list from on the loop i
+
+        # Copy the list into a new_list so when we append, it doesn't always reference
+        # the original list. This seems kinda wrong, but it works. It doesn't work
+        # if I just append wedge_list to wedge_block, presumably because of the reference
+        # / mutability issue?
+        new_list = copy.copy(wedge_list) 
+
+        # append the copied list
+        wedge_block.append(new_list)
+
+    return wedge_block
+
 
 
 def loops_7():
@@ -203,6 +275,45 @@ def loops_7():
     This is a hard problem. Use lots of experimentation and draw
     lots of diagrams!
     """
+
+    import copy
+
+    pyramid_list = []
+    
+    pyramid_length = 9
+    pyramid_height = 5
+    
+    for i in range(pyramid_height):
+
+        # Empty the block list
+        pyramid_block_list = []
+
+        # We start with one block. Each loop we add an equivalent to the loop number (i*2).
+        number_of_blocks = 1 + (i*2) # i is 0 for the first loop, so we end up with only one block.
+
+        # Find out how much space we need
+        # It'll be the length of the pyramid minus the current number of blocks
+        # We'll divide it by 2 because it needs to go either side
+        pyramid_space = int((pyramid_length - number_of_blocks) / 2)
+
+        # Build the pyramid line (space, block, space)
+        for i in range(pyramid_space):
+            pyramid_block_list.append(' ')
+        for i in range(number_of_blocks):  
+            pyramid_block_list.append('*')
+        for i in range(pyramid_space):
+            pyramid_block_list.append(' ')
+
+        new_pyramid_block_list = copy.copy(pyramid_block_list)
+        pyramid_list.append(new_pyramid_block_list)
+
+    return pyramid_list
+
+
+
+
+
+
     return None
 
 
@@ -212,6 +323,8 @@ def lp(some_kind_of_list, exercise_name):
     This is a helper function that prints your
     results to check that they are tidy.
     Note: You don't have to do anything with it.
+    """
+    
     """
     if some_kind_of_list is not None:
         print("\n" + exercise_name)
@@ -226,6 +339,7 @@ def lp(some_kind_of_list, exercise_name):
             print()
     else:
         print(exercise_name, "maybe you haven't got to this one yet?")
+    """
 
 
 if __name__ == "__main__":

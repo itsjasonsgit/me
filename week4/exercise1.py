@@ -1,5 +1,7 @@
 """All about IO."""
-
+# New website?
+# https://l.facebook.com/l.php?u=https%3A%2F%2Fus-central1-waldenpondpress.cloudfunctions.net%2Fgive_me_a_word%3Ffbclid%3DIwAR3QaN0Sgp7XCoPKn5KLpy9_p9diC-ja24hSKM2DyUHUM1W2YGX9OZ8sPYk&h=AT3F1o0qFGj4mdptMr2U9qWWxaWQrqThhV13efZ4YMQCXAOKqrE4eeeDB1Y4CmnOYTLjv7ZjIPHyFcoRxaBzdfYGtz5NWk3drT5N3Rtdx-mGmn8rDOcY_oIAJprBBEg0oqWBYuO1a9up12g
+# Specify how many characters you want and it'll generate a random word
 
 import json
 import os
