@@ -23,8 +23,51 @@ def binary_search(low, high, actual_number):
     Use the VS Code debugging tools a lot here. It'll make understanding 
     things much easier.
     """
+    # Set the tries and final guess to 0
     tries = 0
     guess = 0
+
+    # Split the initial search range in half
+    guess = int(high - ((high - low) / 2))
+    print(guess)
+
+    # If the guess does not equal the actual number we're looking for
+    while guess != actual_number:
+        # Figure out what the midpoint is between
+        guess = int(high - ((high - low) / 2))
+
+        # If the guess is greater than the actual number
+        if guess > actual_number:
+            # We slice out the values that are higher than the guess
+            # The highest search value thgen becomes the guess
+            # And - 1 removes the current number from the guess range
+            high = guess - 1
+            
+            # Add one to tries
+            tries += 1
+
+        # If the guess is less than the actual number
+        elif guess < actual_number:
+            # We slice out the values that are LOWER than the guess
+            # The guess beceomes the LOWEST number
+            # And + to remove the current guess from the range
+            low = guess + 1
+            
+            # Add one to tries
+            tries += 1
+
+    # Otherwise, we're done
+    else:
+        print('Got it!')
+        print(guess)
+        
+
+
+
+
+
+
+
     return {"guess": guess, "tries": tries}
 
 

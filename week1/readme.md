@@ -12,3 +12,6 @@ https://web.microsoftstream.com/user/250537c0-9925-4f72-8811-c4ed791ba40c?fbclid
 
 Trinket Results
 https://trinket.io/blocks/c866835e9d
+
+After doing the homework (chapters 1-5) I've learned, uh, a lot.
+I've compiled notes in my personal notes, rather than here, so I can reference them easily.
