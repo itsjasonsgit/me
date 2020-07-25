@@ -252,6 +252,9 @@ def loops_6():
 
     return wedge_block
 
+    # I could probably do this properly by assigning a variable as the range which
+    # would be the 0 + iteration, that'd fix it? It's fewer lines of code this way, though.
+
 
 
 def loops_7():
@@ -304,8 +307,8 @@ def loops_7():
         for i in range(pyramid_space):
             pyramid_block_list.append(' ')
 
-        new_pyramid_block_list = copy.copy(pyramid_block_list)
-        pyramid_list.append(new_pyramid_block_list)
+        # new_pyramid_block_list = copy.copy(pyramid_block_list)
+        pyramid_list.append(pyramid_block_list)
 
     return pyramid_list
 

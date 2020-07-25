@@ -12,7 +12,28 @@ def loop_ranger(start, stop=None, step=1):
     The look up the docs for range(), you can answer this with just the range 
     function, but we'd like you to do it the long way, probably using a loop.
     """
-    return None
+    # Start and stop are values (integers presumably) that'll be parsed into the function
+    # This is how I'd do it using a range
+    """my_range_list = []
+    for i in range(start, stop, step):
+        my_range_list.append(i)
+    
+    return my_range_list
+    print(my_range_list)"""
+
+    # So how to do it using a loop?
+
+    my_loop_list = []
+    step_stage = start # Initial step set by the start value
+    i = 0
+    while i < stop: # If i is less than the stop number, keep looping
+        my_loop_list.append(step_stage) # Append the step stage (starts with 1)
+        step_stage += step # For each loop, append the step the stage
+        i += 1 # Increase the loop counter
+  
+    return my_loop_list
+    print(my_loop_list)
+
 
 
 def lone_ranger(start, stop, step):
