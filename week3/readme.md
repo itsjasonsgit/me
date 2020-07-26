@@ -48,3 +48,42 @@ But it woulda been easier just to do:
 high + low // 2
 // is a floor division
 But ima leave it. Whatever. It works.
+
+
+A code reading experience! Thoughts:
+I didn't struggle with this question. But I didn't feel like
+it was an optimal solution, either.
+
+Rizo's solution is more elegant than mine, since it doesn't require
+adding spaces before AND after. It just figures out
+if there needs to be a space or a star.
+
+What is "abs"? Penny used it too.
+Ah, it returns an absolute number.
+
+Did... penny copy Rizo? Or visa versa?
+
+Either way, I'd need to go through this step by step to figure
+out what the hell is going on. It's not.. readable.
+Why aren't these students commenting?
+
+FlimEden had a super strange solution.
+Again, I hate that they didn't comment.
+
+Lorniashi had a really simple solution.
+Using the {} for formatting is interesting. I'm not sure
+I understand her equation at first glance, but that's pretty sweet.
+Again. COMMENT!!!!
+
+DanielHeh looks like he did the same sort of thing as me.
+That's cool I guess. I think it's pretty readable. But..
+Obviously not the cleanest solution.
+
+These guys seem to be more experienced than 3rd week
+programmers.
+
+Looking at these solutions now, reconsidering the problem,
+I can already think of new ways to solve it. Cleaner ways.
+That's fine. I imagine much of programming, early on, is just
+writing stuff and then re-writing it as you "get it" and
+think about it more with your new, better understanding.

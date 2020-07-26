@@ -60,13 +60,6 @@ def binary_search(low, high, actual_number):
     else:
         print('Got it!')
         print(guess)
-        
-
-
-
-
-
-
 
     return {"guess": guess, "tries": tries}
 
