@@ -9,6 +9,9 @@ import requests
 import inspect
 import sys
 
+
+
+
 # Handy constants
 LOCAL = os.path.dirname(os.path.realpath(__file__))  # the context of this file
 CWD = os.getcwd()  # The curent working directory
@@ -35,16 +38,43 @@ def get_some_details():
          dictionary, you'll need integer indeces for lists, and named keys for
          dictionaries.
     """
-    json_data = open(LOCAL + "/lazyduck.json").read()
+    # Return to dictionary:
+    # last name
+    # password
+    # number you get when you add (literally) the postcode to the ID value
 
+    json_data = open(LOCAL + "\lazyduck.json").read()
     data = json.loads(json_data)
-    return {"lastName": None, "password": None, "postcodePlusID": None}
+ 
+    # Use the data variable (json data)
+    # Look in "results" - which is a dictionary
+    # Then look in the index of 0 - because
+    # the json data is then nested in a list
+    # This is a terrible, terrible way to do this but it works
+    # IN ONLY THIS CIRCUMSTANCE
+    json_last_name = data["results"][0]["name"]["last"]
+    json_password = data["results"][0]["login"]["password"]
+    json_postcode = data["results"][0]["location"]["postcode"]
+    json_id = data["results"][0]["id"]["value"]
+
+    # Should have like a variable set for the values we're looking for
+    # Then run a thing that scans the json data and sees if its there
+    # And prints to the dictionary for each, not just one.
+     
+    return {
+        "lastName": json_last_name,
+        "password": json_password,
+        "postcodePlusID": json_postcode + int(json_id)
+        }
+
+get_some_details()
 
 
 def wordy_pyramid():
     """Make a pyramid out of real words.
 
     There is a random word generator here:
+    https://us-central1-waldenpondpress.cloudfunctions.net/give_me_a_word
     http://api.wordnik.com/v4/words.json/randomWords?api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5&minLength=10&maxLength=10&limit=1
     The arguments that the generator takes is the minLength and maxLength of the word
     as well as the limit, which is the the number of words. 
@@ -76,7 +106,37 @@ def wordy_pyramid():
     ]
     TIP: to add an argument to a URL, use: ?argName=argVal e.g. &minLength=
     """
-    pass
+    # My function to get a word
+    # Based on the length of the argument
+    def get_word(word_length):
+        payload = {"wordlength": word_length}
+        response = requests.get("https://us-central1-waldenpondpress.cloudfunctions.net/give_me_a_word", params=payload)
+        return response.text
+
+    # Min/max word lengths
+    min_word_length = 3
+    max_word_length = 20
+
+    # Empty pyramid list
+    pyramid_list = []
+
+    # Stepping from min to max in a range loop
+    for i in range(min_word_length, max_word_length, 2):
+        # Parsing the current step as the word length into my get_word function
+        new_word = get_word(i)
+        # Appending the data to the list
+        pyramid_list.append(new_word)
+
+    # Repeating, but stepping down
+    # (could probably wrap the prior loop in a function and just change the -2)
+    # DRY... but it works
+    for i in range(max_word_length, min_word_length, -2):
+        new_word = get_word(i)
+        pyramid_list.append(new_word)
+
+    print(pyramid_list)
+
+    return pyramid_list
 
 
 def pokedex(low=1, high=5):
@@ -94,6 +154,19 @@ def pokedex(low=1, high=5):
          variable and then future access will be easier.
     """
     template = "https://pokeapi.co/api/v2/pokemon/{id}"
+
+    # The pokemon have a name in their index 
+    # But the problem you'll have is, inbetween the pokemon
+    # You wanna know which is the tallest
+    # So you need the name and height of the range of pokemon
+    # And it's your job to make a function that does that
+    # Regardless of the number we're actually asking for.
+    # You could just look at it and go which one is the highest
+    # from whatever range you manually select.
+    # But the test will test for different numbers
+    # This is relatively challenging, the others are straight
+    # foward... #
+
 
     url = template.format(id=5)
     r = requests.get(url)
