@@ -113,6 +113,7 @@ def wordy_pyramid():
         response = requests.get("https://us-central1-waldenpondpress.cloudfunctions.net/give_me_a_word", params=payload)
         return response.text
 
+
     # Min/max word lengths
     min_word_length = 3
     max_word_length = 20
@@ -133,10 +134,36 @@ def wordy_pyramid():
     for i in range(max_word_length, min_word_length, -2):
         new_word = get_word(i)
         pyramid_list.append(new_word)
-
-    print(pyramid_list)
-
     return pyramid_list
+    
+    
+    # Doesn't work, for some reason if we try to parse -2
+    # into the function it just... doesn't work. At all.
+    # It works if it's NOT a function. Weird.
+    """
+    # New, simplier?
+    min_wlength = 3
+    max_wlength = 20
+    # step = 2
+
+    pyramid_l = []
+
+    def list_builder(w_step):
+        # print('w_step is now ' + str(w_step))
+        for i in range(min_wlength, max_wlength, w_step):
+            print('i is now ' + str(i))
+            got_word = get_word(i)
+            pyramid_l.append(got_word)
+
+    list_builder(step)
+    list_builder(step * -1)
+
+    print(pyramid_l)
+    """ 
+
+        
+    
+
 
 
 def pokedex(low=1, high=5):
@@ -153,8 +180,9 @@ def pokedex(low=1, high=5):
          get very long. If you are accessing a thing often, assign it to a
          variable and then future access will be easier.
     """
-    template = "https://pokeapi.co/api/v2/pokemon/{id}"
+   
 
+    # *** Notes from lecture ***
     # The pokemon have a name in their index 
     # But the problem you'll have is, inbetween the pokemon
     # You wanna know which is the tallest
@@ -167,12 +195,68 @@ def pokedex(low=1, high=5):
     # This is relatively challenging, the others are straight
     # foward... #
 
+    # Get the height of the pokemon
+    def get_pokemon(pokemon_id):
+        # Dictionary to store the pokemon data
+        pokemon_data_dict = {}
 
-    url = template.format(id=5)
-    r = requests.get(url)
-    if r.status_code is 200:
-        the_json = json.loads(r.text)
-    return {"name": None, "weight": None, "height": None}
+        # Use pokemon API URL + id parsed through range loop
+        pokemon_url = "https://pokeapi.co/api/v2/pokemon/" + str(pokemon_id)
+
+        # Store the response
+        response = requests.get(pokemon_url)
+
+        # Run json data to text if the response status code is good
+        if response.status_code is 200:
+            # Convert the request data to text, store it as pokemon_data
+            pokemon_data = json.loads(response.text)
+        
+        # print(pokemon_data)
+        # dictionary[key] = value
+        pokemon_data_dict["name"] = pokemon_data["name"]
+        pokemon_data_dict["weight"] = pokemon_data["weight"]
+        pokemon_data_dict["height"] = pokemon_data["height"]
+
+        # Show us if it's working
+        print("You're working with " + str(pokemon_data_dict) + "\n")
+
+        # Return the dictionary
+        return pokemon_data_dict
+ 
+
+    # Set the initial compare ID to the min range ("low") and get the pokemon data
+    # From our get_pokemon function's result, which is a dictionary 
+    tallest_pokemon = get_pokemon(low)
+
+    # Who's up first?
+    print("We are starting with a height of: " + str(tallest_pokemon["height"]) + "\n")
+
+    # For each pokemon id in a range
+    for i in range(low, high):
+
+        # Get the data for the compare pokemon using an id
+        # which is our current iteration + 1 (the next one in the list, duh)
+        compare_pokemon = get_pokemon(i + 1)
+        print(i + 1)
+        
+        # It's on!
+        print(str(tallest_pokemon["name"]) + " VS " + str(compare_pokemon["name"]))
+        
+        # If the tallest pokemon's height  is more than the compare pokemon's height...
+        if tallest_pokemon["height"] > compare_pokemon["height"]:
+            print("The tallest pokemon is currently still " + str(tallest_pokemon["name"]) + " and he is " + str(tallest_pokemon["height"]) + " high.")
+        
+        # Otherwise...
+        else:
+            print(str(compare_pokemon["name"]) + ' is taller than' + str(tallest_pokemon["name"]) + "! at a height of " + str(compare_pokemon["height"]) + ".")
+            # The tallest pokemon becomes the compare pokemon
+            tallest_pokemon = compare_pokemon
+    
+    # And the winner is...
+    print("The tallest pokemon is... " + str(tallest_pokemon["name"]) + "!")
+
+    # Done
+    return {"name": tallest_pokemon["name"], "weight": tallest_pokemon["weight"], "height": tallest_pokemon["height"]}
 
 
 def diarist():
