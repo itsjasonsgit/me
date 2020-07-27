@@ -197,7 +197,7 @@ def pokedex(low=1, high=5):
 
     # Get the height of the pokemon
     def get_pokemon(pokemon_id):
-        # Dictionary to store the pokemon data
+        # Dictionary to store the pokemon data because I wanna use a dictionary
         pokemon_data_dict = {}
 
         # Use pokemon API URL + id parsed through range loop
@@ -242,10 +242,11 @@ def pokedex(low=1, high=5):
         # It's on!
         print(str(tallest_pokemon["name"]) + " VS " + str(compare_pokemon["name"]))
         
-        # If the tallest pokemon's height  is more than the compare pokemon's height...
-        if tallest_pokemon["height"] > compare_pokemon["height"]:
+        # If the tallest pokemon's height is more than the compare pokemon's height...
+        # Also, if it's the same, the compare loses (the test requires this)
+        if tallest_pokemon["height"] >= compare_pokemon["height"]:
             print("The tallest pokemon is currently still " + str(tallest_pokemon["name"]) + " and he is " + str(tallest_pokemon["height"]) + " high.")
-        
+
         # Otherwise...
         else:
             print(str(compare_pokemon["name"]) + ' is taller than' + str(tallest_pokemon["name"]) + "! at a height of " + str(compare_pokemon["height"]) + ".")
@@ -257,6 +258,7 @@ def pokedex(low=1, high=5):
 
     # Done
     return {"name": tallest_pokemon["name"], "weight": tallest_pokemon["weight"], "height": tallest_pokemon["height"]}
+
 
 
 def diarist():
@@ -273,7 +275,40 @@ def diarist():
          the test will have nothing to look at.
     TIP: this might come in handy if you need to hack a 3d print file in the future.
     """
-    pass
+    # Open the cgode laser file in read mode (r)
+    gcode_file = open(LOCAL + "/Trispokedovetiles(laser).gcode", "r")
+    
+    # If the file is open in read mode
+    if gcode_file.mode == 'r':
+
+        # Read the file data and put it in "gcode_data"
+        # .readlines() returns all lines in the file as a list
+        gcode_data = gcode_file.readlines()
+
+
+    # We're going to count how many times the laser is activated
+    laser_active = 0
+
+    # Loop as many times as there are list items (lines) in the gcode_data
+    for i in range(len(gcode_data)):
+
+        # Check if the line_check data contains "M10 P1"
+        # We use "in" instead of == because "in" finds out whether
+        # or not a matching string is in another string, rather
+        # than whether or not they're completely the same.
+        if "M10 P1" in gcode_data[i]:
+            # If it is, + 1 to the laser_active variable
+            laser_active += 1
+
+    # Open/create a laser.pew file
+    # w+ (read/write) means if the file doesn't exist, it'll make one
+    laser_file = open(LOCAL + "/lasers.pew", "w+")
+
+    # Write the number as a string
+    laser_file.write(str(laser_active))
+
+    # Close the file
+    laser_file.close
 
 
 if __name__ == "__main__":
