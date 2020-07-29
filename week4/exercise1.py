@@ -276,7 +276,7 @@ def diarist():
     TIP: this might come in handy if you need to hack a 3d print file in the future.
     """
     # Open the cgode laser file in read mode (r)
-    gcode_file = open(LOCAL + "/Trispokedovetiles(laser).gcode", "r")
+    gcode_file = open(LOCAL + "\Trispokedovetiles(laser).gcode", "r")
     
     # If the file is open in read mode
     if gcode_file.mode == 'r':
@@ -302,7 +302,7 @@ def diarist():
 
     # Open/create a laser.pew file
     # w+ (read/write) means if the file doesn't exist, it'll make one
-    laser_file = open(LOCAL + "/lasers.pew", "w+")
+    laser_file = open(LOCAL + "\lasers.pew", "w+")
 
     # Write the number as a string
     laser_file.write(str(laser_active))
