@@ -201,14 +201,15 @@ def triangle_master(base, height, return_diagram=False, return_dictionary=False)
 baseURL =  "https://us-central1-waldenpondpress.cloudfunctions.net/give_me_a_word?wordlength={}"
 
 def wordy_pyramid():
-    # extend() iterates over the argument (a range of numbers in this case)
-    # which then appends (extends) each number to a list
-    pyramid_word_lengths = []
-    # extend the list with a series of numbers in a range
-    pyramid_word_lengths.extend(range(3, 21, 2))
-    pyramid_word_lengths.extend(range(20, 3, -2))
-    # use list_of_words_with_lengths function to give us a list of words with the pyramid's lengths
-    return list_of_words_with_lengths(pyramid_word_lengths)
+    # blah
+    pyramid_list = []
+    for i in range(3, 21, 2):
+        pyramid_list.append(get_a_word_of_length_n(i))
+
+    for i in range(20, 3, -2):
+        pyramid_list.append(get_a_word_of_length_n(i))
+
+    return pyramid_list
 
 
 def get_a_word_of_length_n(length):
@@ -224,9 +225,9 @@ def get_a_word_of_length_n(length):
 def list_of_words_with_lengths(list_of_lengths):
 
     # Map exectutes a function (get_a_word_of_length_n)
-    # And it does this repeatedly, for each item in list_of_lengths
-    # And, each time, the the value from list_of_lengths is passed
-    # through to the function in the map (get_a_word_of_length_n)
+    # for each iteration of list_of_lengths (3)
+    # And, for each iteration, passed through the value from list_of_lengths
+    # to the function in the map
     return map(get_a_word_of_length_n, list_of_lengths)
 
 

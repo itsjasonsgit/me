@@ -91,7 +91,7 @@ def abba(source="abba", guard=3):
     aobaobbbabbaoaaobbbaoaaobaobaobbba
                 and so on...
     """
-    def apply_rules(letter, guard):
+    def apply_rules(letter):
         """Control the substitution.
 
         You need to change these substitutions to make it work.
@@ -99,16 +99,31 @@ def abba(source="abba", guard=3):
         Hint: when guard == -1 return the letter.
         """
         if letter == "a":
-            return "a"
+            return "bba"
         elif letter == "b":
-            return "b"
+            return "aob"
         elif letter == "o":
-            return "o"
+            return "oa"
         else:
             return letter
 
-    # write the rest of the function here
-    pass
+    # set the initial letter_list from source (abba)
+    letter_list = source
+
+    for i in range(0, guard, 1):
+        # Turn it into a list for mapping
+        letter_list = list(letter_list)
+
+        # Map the list to apply_rules
+        # If map isn't stored as a list it returns some weird string
+        letter_list = list(map(apply_rules, letter_list))
+
+        # Join all of the items in the previous map (a list) together
+        # And then iterate on it again
+        separator = ""
+        letter_list = separator.join(letter_list)
+
+    return letter_list
 
 
 def koch(t, order, size):
@@ -152,9 +167,19 @@ def square_koch(t, order, size):
 
     """
     trace = ""
-    # write the rest of the function here.
+    if order == 0:          # The base case is just a straight line
+        t.forward(size)
+    else:
+        trace += square_koch(t, order-1, size/3)
+        t.left(90)
+        trace += square_koch(t, order-1, size/3)
+        t.right(90)
+        trace += square_koch(t, order-1, size/3)
+        t.right(90)
+        trace += square_koch(t, order-1, size/3) 
+        t.left(90)
+        trace += square_koch(t, order-1, size/3)
     return str(order) + trace
-    pass
 
 
 def draw_square(steps=4):
